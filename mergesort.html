@@ -1,0 +1,64 @@
+<!--
+	This is a quick merge sort I wrote on my iPad while stuck on an airplane
+	flying cross country.  
+
+	The purpose was 1) to see if I remembered merge sort well enough to type in on the fly, 
+	and 2) to try out coding on my iPad.  It was moderately successful except I have yet
+	to find a really good iPad editor, especially when it comes to being able to see
+	JS syntax errors.
+-->
+
+<html>
+<head>
+	<title>Merge Sort</title>
+</head>
+
+<body>
+	<script>
+		function mergeSort(arr) {
+			var left, right;
+			if(arr.length > 1) {
+				var middle = Math.floor( arr.length / 2 );
+				left = mergeSort( arr.splice(0, middle) );
+				right = mergeSort( arr );
+				return merge(left, right);
+			} else  {
+				return arr;
+			}
+		}
+
+		function merge( left, right ) {
+			var leftPoint = 0, rightPoint = 0;
+			var result = [];
+
+			while( leftPoint < left.length || rightPoint < right.length  ) {
+				if(leftPoint >= left.length) {
+					result.push( right[rightPoint] )
+					rightPoint++;
+				} else if( rightPoint >= right.length ) {
+					result.push( left[leftPoint] );
+					leftPoint++;
+				} else {
+					if( left[leftPoint] < right[rightPoint] ) {
+						result.push( left[leftPoint] );
+						leftPoint++;
+					} else {
+						result.push( right[rightPoint] );
+						rightPoint++;
+					}
+				}
+			}
+
+			return result;
+		}
+
+		var nums = [4,3,2,10,1,6,8,0,9];
+		document.writeln("<h1>Before");
+		document.writeln(nums);
+		document.writeln("</h1><h1>After");
+		document.writeln( mergeSort( nums ) );
+		document.writeln("</h1>");
+
+	</script>
+</body>
+</html>
